@@ -56,3 +56,64 @@ async function getData (){
 }
 
 getData()
+
+
+//Alerta 
+
+document.getElementById('loginForm').addEventListener('submit', function(event) {
+  const email = document.getElementById('email').value;
+  const senha = document.getElementById('senha').value;
+  let mensagem = "";
+
+  if (email === "" && senha === "") {
+      mensagem = "Por favor, preencha o email e a senha.";
+  } else if (email === "") {
+      mensagem = "Por favor, preencha o email.";
+  } else if (senha === "") {
+      mensagem = "Por favor, preencha a senha.";
+  }
+
+  if (mensagem !== "") {
+      event.preventDefault(); // Impede o envio do formulário
+      alert(mensagem);
+  }
+});
+
+// Função para validar campos e habilitar/desabilitar botões
+function validateFields() {
+  const email = document.getElementById('email').value;
+  const password = document.getElementById('password').value;
+  const loginButton = document.getElementById('login-button');
+  const recoverPasswordButton = document.getElementById('recover-password-button');
+
+  let mensagem = "";
+  if (email === "" && password === "") {
+      mensagem = "Por favor, preencha o email e a senha.";
+  }
+  else if (email === "") {
+      mensagem = "Por favor, preencha o email.";
+  }
+  else if (password === "") {
+      mensagem = "Por favor, preencha a senha.";
+  }
+
+  // Exibe o alerta se houver uma mensagem de erro
+  if (mensagem !== "") {
+      alert(mensagem);
+  }
+
+  if (email !== "") {
+      recoverPasswordButton.disabled = false;
+  } else {
+      recoverPasswordButton.disabled = true;
+  }
+
+  if (email !== "" && password !== "") {
+      loginButton.disabled = false;
+  } else {
+      loginButton.disabled = true;
+  }
+}
+
+
+
