@@ -1,119 +1,71 @@
-function validateFields(){
+// Validação dos campos e habilitação/desabilitação dos botões
+function validateFields() {
   const emailValid = isEmailValid();
-  document.getElementById('recover-password-button').disabled = !emailValid;
-
   const passwordValid = isPasswordValid();
-  document.getElementById('login-button').disabled = !emailValid || !passwordValid;
+
+  document.getElementById('recover-password-button').disabled = !emailValid;
+  document.getElementById('login-button').disabled = !(emailValid && passwordValid);
 }
 
+// Verifica se o email é válido
 function isEmailValid() {
-  const email = document.getElementById("email").value;
-  if (!email) {
-    return false;
-  } 
-
-  return validateEmail(email);
+  const email = document.getElementById("email").value.trim();
+  return email ? validateEmail(email) : false;
 }
 
-function isPasswordValid(){
-  const password = document.getElementById('password').value;
-  if (!password){
-    return false;
-  }
-
-  return true;
+// Verifica se a senha foi preenchida
+function isPasswordValid() {
+  const password = document.getElementById('password').value.trim();
+  return password !== '';
 }
 
+// Valida o formato do email
 function validateEmail(email) {
   return /\S+@\S+\.\S+/.test(email);
 }
 
+// Função para mostrar/esconder a senha
+function mostrarSenha() {
+  const inputPass = document.getElementById('password');
+  const btnShowPass = document.getElementById('btn-senha');
 
-
-
-
-
-function mostrarSenha(){
-  var inputPass = document.getElementById('password')
-  var btnShowPass = document.getElementById('btn-senha')
-  if (inputPass.type === 'password'){
-      inputPass.setAttribute('type', 'text',)
-      btnShowPass.classList.replace('bi-eye-fill', 'bi-eye-slash-fill')
+  if (inputPass.type === 'password') {
+    inputPass.setAttribute('type', 'text');
+    btnShowPass.classList.replace('bi-eye-fill', 'bi-eye-slash-fill');
   } else {
-      inputPass.setAttribute('type', 'password',)
-      btnShowPass.classList.replace('bi-eye-slash-fill', 'bi-eye-fill')
+    inputPass.setAttribute('type', 'password');
+    btnShowPass.classList.replace('bi-eye-slash-fill', 'bi-eye-fill');
   }
-
 }
 
-
-async function getData (){
-  const result = await fetch("http://localhost:8088")
-      .then(result => JSON.stringify(result))
-      .then(data => console.log(data))
-
-      return result
+// Função assíncrona para obter dados (exemplo)
+async function getData() {
+  try {
+    const response = await fetch("http://localhost:8088");
+    const data = await response.json(); // Conversão direta para JSON
+    console.log(data);
+    return data;
+  } catch (error) {
+    console.error('Erro ao obter dados:', error);
+  }
 }
 
-getData()
-
-
-//Alerta 
-
+// Evento de envio do formulário com validação de campos
 document.getElementById('loginForm').addEventListener('submit', function(event) {
-  const email = document.getElementById('email').value;
-  const senha = document.getElementById('senha').value;
+  const email = document.getElementById('email').value.trim();
+  const senha = document.getElementById('senha').value.trim();
   let mensagem = "";
 
-  if (email === "" && senha === "") {
-      mensagem = "Por favor, preencha o email e a senha.";
-  } else if (email === "") {
-      mensagem = "Por favor, preencha o email.";
-  } else if (senha === "") {
-      mensagem = "Por favor, preencha a senha.";
+  if (!email && !senha) {
+    mensagem = "Por favor, preencha o email e a senha.";
+  } else if (!email) {
+    mensagem = "Por favor, preencha o email.";
+  } else if (!senha) {
+    mensagem = "Por favor, preencha a senha.";
   }
 
-  if (mensagem !== "") {
-      event.preventDefault(); // Impede o envio do formulário
-      alert(mensagem);
+  if (mensagem) {
+    event.preventDefault(); // Impede o envio do formulário se houver mensagem
+    alert(mensagem);
   }
 });
-
-// Função para validar campos e habilitar/desabilitar botões
-function validateFields() {
-  const email = document.getElementById('email').value;
-  const password = document.getElementById('password').value;
-  const loginButton = document.getElementById('login-button');
-  const recoverPasswordButton = document.getElementById('recover-password-button');
-
-  let mensagem = "";
-  if (email === "" && password === "") {
-      mensagem = "Por favor, preencha o email e a senha.";
-  }
-  else if (email === "") {
-      mensagem = "Por favor, preencha o email.";
-  }
-  else if (password === "") {
-      mensagem = "Por favor, preencha a senha.";
-  }
-
-  // Exibe o alerta se houver uma mensagem de erro
-  if (mensagem !== "") {
-      alert(mensagem);
-  }
-
-  if (email !== "") {
-      recoverPasswordButton.disabled = false;
-  } else {
-      recoverPasswordButton.disabled = true;
-  }
-
-  if (email !== "" && password !== "") {
-      loginButton.disabled = false;
-  } else {
-      loginButton.disabled = true;
-  }
-}
-
-
-
