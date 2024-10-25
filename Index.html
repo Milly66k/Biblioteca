@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Biblioteca </title>
     <link rel="shortcut icon" href="./imagens/formulario-icone.png" type="image/x-icon">
-    <link rel="stylesheet" href="style.css">
+    
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -24,24 +24,35 @@
                 <div>
                     <div><label>Email</label></div>
                     <input class="input" id="email" onchange="validateFields()" type="email" name="email" placeholder="seu email">
+                    <span id="email-error" class="error-message" >Por favor, insira um email válido.</span>
                 </div>
-                <div class="password-wrapper"> <!-- Adicione essa classe -->
+                <div class="password-wrapper"> 
                     <div><label>Senha</label></div>
-                    <input class="input" id="password" onchange="validateFields()" type="password" name="password" placeholder="sua senha">
-                    <i class="bi bi-eye-fill eye" id="btn-senha" onclick="mostrarSenha()"></i>
+                    <div class="input-container"> <!-- Novo contêiner para o input e o botão -->
+                        <input class="input" id="password" onchange="validateFields()" type="password" name="password" placeholder="sua senha">
+                        <i class="bi bi-eye-fill eye" id="btn-senha" onclick="mostrarSenha()"></i>
+                    </div>
+                    <span id="password-error" class="error-message">Por favor, preencha a senha.</span>
                 </div>
+                
 
                 <div class="button-login">
                     <div class="button-login-item"><button class="clear" id="recover-password-button" disabled="true" type="button">Recuperar Senha</button></div>
                     <div class="button-login-item"><button class="solid" id="login-button" disabled="true" type="submit">Entrar</button></div>
-                    <div class="button-login-item"><button class="outline" type="button">Logar sem Conta</button></div>
+                    <div class="button-login-item"><button class="outline" type="button">Usuário Externo</button></div>
                 </div>
             </form>
         </div>
     </main>
 
     <footer></footer>
+</body>
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="global.css">
     
     <script src="index.js"></script>
-</body>
+    <script src="validations.js"></script>
+
+
 </html>

@@ -1,30 +1,94 @@
-// Validação dos campos e habilitação/desabilitação dos botões
+// Função para validar campos e controlar a habilitação dos botões
 function validateFields() {
-  const emailValid = isEmailValid();
-  const passwordValid = isPasswordValid();
-
-  document.getElementById('recover-password-button').disabled = !emailValid;
-  document.getElementById('login-button').disabled = !(emailValid && passwordValid);
-}
-
-// Verifica se o email é válido
-function isEmailValid() {
   const email = document.getElementById("email").value.trim();
-  return email ? validateEmail(email) : false;
+  const password = document.getElementById('password').value.trim();
+
+  const emailValid = isEmailValid(email);
+  const passwordValid = isPasswordValid(password);
+
+  toggleButtonState('recover-password-button', emailValid);
+  toggleButtonState('login-button', emailValid && passwordValid);
+
+  toggleErrorMessage('email-error', emailValid);
+  toggleErrorMessage('password-error', passwordValid);
 }
 
-// Verifica se a senha foi preenchida
-function isPasswordValid() {
-  const password = document.getElementById('password').value.trim();
+function isEmailValid(email) {
+  return email && validateEmail(email);
+}
+
+function isPasswordValid(password) {
   return password !== '';
 }
 
-// Valida o formato do email
-function validateEmail(email) {
-  return /\S+@\S+\.\S+/.test(email);
+
+
+function togglePasswordVisibility() {
+  const inputPass = document.getElementById('password');
+  const btnShowPass = document.getElementById('btn-senha');
+  const isPasswordType = inputPass.type === 'password';
+
+  inputPass.type = isPasswordType ? 'text' : 'password';
+  btnShowPass.classList.toggle('bi-eye-fill', isPasswordType);
+  btnShowPass.classList.toggle('bi-eye-slash-fill', !isPasswordType);
 }
 
-// Função para mostrar/esconder a senha
+async function fetchData(url) {
+  try {
+    const response = await fetch(url);
+    if (!response.ok) throw new Error('Erro na resposta da rede');
+    return await response.json();
+  } catch (error) {
+    console.error('Erro ao obter dados:', error);
+    return null; 
+  }
+}
+
+function toggleErrorMessage(errorId, isValid) {
+  const errorMessage = document.getElementById(errorId);
+  errorMessage.style.display = isValid ? 'none' : 'block';
+}
+
+function toggleErrorMessage(errorId, isValid) {
+  const errorMessage = document.getElementById(errorId);
+  if (isValid) {
+    errorMessage.classList.remove('active');
+  } else {
+    errorMessage.classList.add('active');
+  }
+}
+
+
+function toggleButtonState(buttonId, state) {
+  document.getElementById(buttonId).disabled = !state;
+}
+
+document.getElementById('loginForm').addEventListener('submit', function(event) {
+  const email = document.getElementById('email').value.trim();
+  const password = document.getElementById('password').value.trim();
+  
+  const errors = validateForm(email, password);
+
+  if (errors.length) {
+    event.preventDefault();
+    alert(errors.join('\n'));
+  }
+});
+
+function validateForm(email, password) {
+  const errors = [];
+  
+  if (!email && !password) {
+    errors.push("Por favor, preencha o email e a senha.");
+  } else {
+    if (!email) errors.push("Por favor, preencha o email.");
+    if (!validateEmail(email)) errors.push("Por favor, insira um email válido.");
+    if (!password) errors.push("Por favor, preencha a senha.");
+  }
+
+  return errors;
+}
+
 function mostrarSenha() {
   const inputPass = document.getElementById('password');
   const btnShowPass = document.getElementById('btn-senha');
@@ -38,34 +102,4 @@ function mostrarSenha() {
   }
 }
 
-// Função assíncrona para obter dados (exemplo)
-async function getData() {
-  try {
-    const response = await fetch("http://localhost:8088");
-    const data = await response.json(); // Conversão direta para JSON
-    console.log(data);
-    return data;
-  } catch (error) {
-    console.error('Erro ao obter dados:', error);
-  }
-}
 
-// Evento de envio do formulário com validação de campos
-document.getElementById('loginForm').addEventListener('submit', function(event) {
-  const email = document.getElementById('email').value.trim();
-  const senha = document.getElementById('senha').value.trim();
-  let mensagem = "";
-
-  if (!email && !senha) {
-    mensagem = "Por favor, preencha o email e a senha.";
-  } else if (!email) {
-    mensagem = "Por favor, preencha o email.";
-  } else if (!senha) {
-    mensagem = "Por favor, preencha a senha.";
-  }
-
-  if (mensagem) {
-    event.preventDefault(); // Impede o envio do formulário se houver mensagem
-    alert(mensagem);
-  }
-});

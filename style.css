@@ -48,43 +48,42 @@ h2{
     padding-bottom: 10px;
 }
 
+.error-message {
+    color: #ff4d4d; 
+    font-size: 14px; 
+    font-family: 'Arial', sans-serif; 
+    margin-top: 5px; 
+    display: none; 
+}
+
 
 input {
-    background-color: #ccc; /* Fundo transparente */
-    border: 1px solid #ccc; /* Borda cinza, ajustável */
-    padding: 10px; /* Espaçamento interno */
-    color: #000; /* Cor do texto */
-    font-size: 16px; /* Tamanho da fonte */
+    background-color: #ccc; 
+    border: 1px solid #cccccc3d; 
+    padding: 10px; 
+    color: #000; 
+    font-size: 16px;
     border-radius: 10px;
 }
 
 input::placeholder {
-    color: rgba(36, 28, 28, 0.5); /* Cor do placeholder, transparente se necessário */
+    color: #afafaf; 
 }
 
 button{
     
-    background-color: #171817f8; /* Cor de fundo (verde) */
+    background-color: #171817f8; 
+    color: white; 
+    border: none; 
+    padding: 5px 10px; 
+    text-align: center; 
+    text-decoration: none; 
+    display: inline-block; 
+    font-size: 14px; 
+    border-radius: 5px; 
+    cursor: pointer; 
 
-    color: white; /* Cor do texto */
-
-    border: none; /* Sem bordas */
-
-    padding: 5px 10px; /* Espaçamento interno */
-
-    text-align: center; /* Alinhamento do texto */
-
-    text-decoration: none; /* Remove sublinhado */
-
-    display: inline-block; /* Alinha em bloco */
-
-    font-size: 14px; /* Tamanho do texto */
-
-    border-radius: 5px; /* Bordas arredondadas */
-
-    cursor: pointer; /* Ícone de cursor ao passar por cima */
-
-    transition: background-color 0.3s ease; /* Transição suave na cor de fundo */
+    transition: background-color 0.3s ease; 
     font-family: Georgia, 'Times New Roman', Times, serif;
     transition: background-color 1s ease, transform 0.5s ease;
     width: 150px;
@@ -92,22 +91,22 @@ button{
 
 button:hover {
 
-    background-color: #373837; /* Cor de fundo ao passar o mouse */
+    background-color: #373837; 
     transform:scale(1.08);
 
 }
 
 button:active {
 
-    background-color: #636863; /* Cor de fundo ao clicar */
+    background-color: #636863; 
 
 }
 
 button:disabled {
 
-    background-color: #ccc; /* Cor de fundo quando desabilitado */
+    background-color: #494c4c; 
 
-    cursor: not-allowed; /* Ícone de "não permitido" quando desabilitado */
+    cursor: not-allowed; 
 
 }
 .button-login{
@@ -132,6 +131,7 @@ button:disabled {
     padding: 10px 20px;
     font-size: 14px;
     cursor: pointer;
+    width: 200px;
 }
 
 button {
@@ -166,25 +166,54 @@ div i{
 
 
 .password-wrapper {
-    position: relative; /* Para posicionar o ícone dentro do input */
+    position: relative; 
     display: flex;
-    flex-direction: column; /* Faz com que o label fique acima do input */
-    align-items: flex-start; /* Alinha o conteúdo à esquerda */
+    flex-direction: column; 
+    align-items: flex-start; 
 }
 
 input {
     width: 100%;
-    padding-right: 40px; /* Espaço para o ícone no lado direito */
-    margin-top: 5px; /* Pequeno espaço entre o label e o input */
+    padding-right: 40px; 
+    margin-top: 5px; 
+    background-color: #37383790;
+
 }
 
 .password-wrapper i {
     position: absolute;
-    right: 10px; /* Ícone no canto direito */
-    top: 70%; /* Centraliza o ícone no meio do campo de senha */
+    right: 10px; 
+    top: 70%; 
     transform: translateY(-50%);
     cursor: pointer;
     font-size: 20px;
     color: #7a7a7a;
 }
+
+
+.error-message {
+    color: #ff4d4d;
+    font-size: 14px;
+    font-family: 'Arial', sans-serif;
+    margin-top: 5px;
+    height: 18px; 
+    display: block; 
+    visibility: hidden; 
+}
+
+
+.error-message.active {
+    visibility: visible;
+}
+
+.password-wrapper i {
+    position: absolute;
+    right: 10px;
+    top: 52%; 
+    transform: translateY(-50%);
+    cursor: pointer;
+    font-size: 20px;
+    color: #7a7a7a;
+}
+
 
